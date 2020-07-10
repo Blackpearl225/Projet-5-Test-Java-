@@ -86,4 +86,32 @@ public class TicketDAO {
         }
         return false;
     }
+    
+    public int checkVehicleRegistrationNumber(String vehicleRegistration) {
+    
+    	Connection con = null;
+        PreparedStatement ps = null;
+    	ResultSet rs = null;
+    	int count = 0;
+    	try {
+    		
+    		con = dataBaseConfig.getConnection();
+    		String query = "select count(*) from ticket where VEHICLE_REG_NUMBER =? ";
+    		ps = con.prepareStatement(query);
+    		ps.setString(1, vehicleRegistration);
+    		rs = ps.executeQuery();
+    		while (rs.next()) {
+                count=rs.getInt("count(*)");
+
+    		}
+    	}
+    	catch(Exception e ) {
+    	
+    	e.printStackTrace();
+    	}finally {
+            dataBaseConfig.closeConnection(con);	
+    	}
+    return count;
+    }
+    
 }
