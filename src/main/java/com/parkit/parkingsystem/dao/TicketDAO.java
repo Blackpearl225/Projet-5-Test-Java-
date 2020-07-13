@@ -113,5 +113,58 @@ public class TicketDAO {
     	}
     return count;
     }
+    public boolean parkingPlaceIsUpdateAndAvailable() {
+        
+    	Connection con = null;
+        PreparedStatement ps = null;
+    	ResultSet rs = null;
+    	int count = 0;
+    	boolean ok;
+    	String available = "False";
+    	try {
+    		
+    		con = dataBaseConfig.getConnection();
+    		String query = "select count(*) from parking where AVAILABLE =? ";
+    		ps = con.prepareStatement(query);
+    		ps.setString(1,available );
+    		rs = ps.executeQuery();
+    		while (rs.next()) {
+                count=rs.getInt("count(*)");
+
+    		}
+    	}
+    	catch(Exception e ) {
+    	
+    	e.printStackTrace();
+    	}finally {
+            dataBaseConfig.closeConnection(con);	
+    	}
+    	if(count==0)
+    		ok = false;
+    	else
+    		ok = true;
+    return ok;
+    }
+    
+    public boolean ticketSaveInDatabase(String vehicleRegistration ) {
+    	boolean ok;
+    	int a = checkVehicleRegistrationNumber(vehicleRegistration);
+    	if (a==0)
+    		ok = false;
+    	else 
+    		ok = true;
+    	return ok;
+    			
+    }
+    
+    public boolean updateTicket(String vehicleReg) {
+    	Ticket ticket= new Ticket();
+    	ticket = getTicket(vehicleReg);
+    	if(ticket.getPrice() ==0 && ticket.getOutTime()!=null)
+    		return true;
+    	else
+    		return false;  	
+    	
+    }
     
 }

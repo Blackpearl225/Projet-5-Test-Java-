@@ -58,4 +58,13 @@ public class Ticket {
     public void setOutTime(Date outTime) {
         this.outTime = outTime;
     }
+    public void egal(Ticket ticket) {
+    	
+    this.inTime = ticket.inTime;
+    this.outTime = ticket.outTime;
+    this.id = ticket.id;
+    this.vehicleRegNumber = ticket.vehicleRegNumber;
+    this.parkingSpot = ticket.parkingSpot;
+    	
+    }
 }
