@@ -55,7 +55,7 @@ public class ParkingDataBaseIT {
     }
 
     @Test
-    public void testParkingACar() throws Exception{
+    public void testIncomingParkingACar() throws Exception{
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
         vehicleReg = inputReaderUtil.readVehicleRegistrationNumber();
@@ -63,9 +63,8 @@ public class ParkingDataBaseIT {
         assertTrue(ticketDAO.parkingPlaceIsUpdateAndAvailable());
         parkingService.processExitingVehicle();
         assertTrue(ticketDAO.updateTicket(vehicleReg));
-        
-        
+            
     }
-
+    
   
 }
